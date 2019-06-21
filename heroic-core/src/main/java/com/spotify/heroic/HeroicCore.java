@@ -312,7 +312,6 @@ public class HeroicCore implements HeroicConfiguration {
             final String collectorHost = configMap.get("collectorHost");
             final Integer collectorPort = (Integer) config.getOrDefault("collectorPort",
               DEFAULT_LIGHTSTEP_COLLECTOR_PORT);
-            final String accessToken = configMap.get("accessToken");
             final String componentName = (String) config.getOrDefault("componentName",
               DEFAULT_LIGHTSTEP_COMPONENT_NAME);
             final Integer reportingIntervalMs = (Integer) config.getOrDefault("reportingIntervalMs",
@@ -322,18 +321,12 @@ public class HeroicCore implements HeroicConfiguration {
             final Boolean resetClient = (Boolean) config.getOrDefault("resetClient",
               DEFAULT_LIGHTSTEP_RESET_CLIENT);
 
-
-            if (accessToken == null) {
-                throw new IllegalArgumentException("Lightstep accessToken must be defined");
-            }
-
             if (collectorHost == null) {
                 throw new IllegalArgumentException(
                   "Lightstep collectorHost must be defined");
             }
 
             final Options.OptionsBuilder optionsBuilder = new Options.OptionsBuilder()
-                .withAccessToken(accessToken)
                 .withMaxReportingIntervalMillis(reportingIntervalMs)
                 .withMaxBufferedSpans(maxBufferedSpans)
                 .withCollectorProtocol("http")
